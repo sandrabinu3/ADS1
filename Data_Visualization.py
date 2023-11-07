@@ -69,10 +69,22 @@ for c in country:
     plt.ylim([486,980])
     plt.xticks(np.arange(2010,2020))
     plt.yticks(np.arange(450,1000,50))
-    plt.title('Cancer attributed Deaths of 5 Countries (2010-2019)')
-    plt.xlabel('Year')
-    plt.ylabel('Total Cancer Deaths')
+    plt.title('Cancer attributed Deaths of 5 Countries (2010-2019)', fontsize=15, fontweight='bold')
+    plt.xlabel('Year', fontsize=12)
+    plt.ylabel('Total Cancer Deaths', fontsize=12)
 
 plt.legend(loc='best')
+plt.savefig('CancerVsCountry.png')
 plt.show()
 
+
+cancer19=cancer_df[cancer_df['Year']==2019]
+print(cancer19['Tracheal, bronchus, and lung'])
+
+
+plt.figure(2)
+plt.bar(cancer19['Country'], cancer19['Breast'], label='Breast Cancer')
+plt.bar(cancer19['Country'], cancer19['Tracheal, bronchus, and lung'], 
+        bottom=cancer19['Breast'], label='Tracheal, bronchus and lung Cancer')
+#plt.legend(fontsize=10, loc=(0.5,0.5))
+plt.show()
