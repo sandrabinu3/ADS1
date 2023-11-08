@@ -79,12 +79,46 @@ plt.show()
 
 
 cancer19=cancer_df[cancer_df['Year']==2019]
-print(cancer19['Tracheal, bronchus, and lung'])
-
 
 plt.figure(2)
 plt.bar(cancer19['Country'], cancer19['Breast'], label='Breast Cancer')
 plt.bar(cancer19['Country'], cancer19['Tracheal, bronchus, and lung'], 
         bottom=cancer19['Breast'], label='Tracheal, bronchus and lung Cancer')
 #plt.legend(fontsize=10, loc=(0.5,0.5))
+plt.show()
+
+
+
+
+
+cancer19 = cancer[cancer['Year']==2019]
+
+cancer_types=cancer19.columns[3:]
+cancer19.loc['Grand Total']=cancer19[cancer_types].sum(axis=0)
+
+values=list(cancer19.loc['Grand Total'][3:])
+values
+
+threshold=1400000
+
+grp_values=[]
+grp_types=[]
+
+low_values=0
+for i in range(len(types)):
+    if values[i]<threshold:
+        low_values+=values[i]
+    else:
+        grp_values.append(values[i])
+        grp_types.append(types[i])
+        
+grp_values.append(low_values)
+grp_types.append('Others')
+
+plt.figure(3,figsize=(10,6))
+plt.pie(grp_values, labels=grp_types, autopct='%1.1f%%', pctdistance=0.8)
+plt.title('Global Distribution of Cancer-Caused Deaths and Cancer Types 2019',
+          fontweight='bold')
+plt.axis('equal')
+plt.legend()
 plt.show()
