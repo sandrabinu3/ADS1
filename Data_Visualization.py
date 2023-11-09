@@ -59,7 +59,7 @@ def StackedBarPlot(xaxis, yaxis1, yaxis2):
     plt.title('Comparison of Breast and Tracheal, bronchus, and lung Cancer'+'\n'
               + 'Caused Deaths of 5 Countries in 2019', fontweight='bold')
     plt.xlabel('Country', fontsize=12)
-    plt.ylabel('Cancer Death Count', fontsize=12)
+    plt.ylabel('Proportion of Cancer Deaths', fontsize=12)
 
     # Determine the percentages of each cancer type in each country
     total_cases = yaxis1 + yaxis2
