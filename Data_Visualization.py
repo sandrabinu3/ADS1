@@ -16,7 +16,7 @@ def LinePlot(xaxis):
     """
     for c in country:
         """ The total number of cancer deaths in a certain year in a 
-        selected set of nations, for example, is displayed against 2010 and 
+        selected set of nations, for example, is displayed against 2000 and 
         similarly in each rotation """
         year_total = list(cancer_df[cancer_df['Country'] == c]['Total'])
 
@@ -25,15 +25,15 @@ def LinePlot(xaxis):
         plt.plot(xaxis, year_total, label=c, marker='o')
 
         # set x-axis and y-axis limits
-        plt.xlim([2010, 2019])
-        # plt.ylim([486, 980])
+        plt.xlim([2000, 2019])
+        plt.ylim([18000, 36000])
 
         # set the ticks on both axes
         plt.xticks(year)
-        # plt.yticks(np.arange(450, 1000, 50))
+        plt.yticks(np.arange(20000, 36000, 2000))
 
         # set the title and axes labels
-        plt.title('Cancer attributed Deaths of 5 Countries (2010-2019)',
+        plt.title('Cancer attributed Deaths of 5 Countries (2000-2019)'+'\n',
                   fontsize=15, fontweight='bold')
         plt.xlabel('Year', fontsize=12)
         plt.ylabel('Total Cancer Deaths', fontsize=12)
@@ -120,14 +120,14 @@ cancer.columns = ['Country', 'Code', 'Year', 'Liver', 'Kidney',
                   'Other pharynx', 'Colon and rectum',
                   'Non-melanoma skin', 'Mesothelioma']
 
-# Creating a new Dataframe with cancer record from 2010 to 2019
-cancer2010_19 = cancer[(cancer['Year'] >= 2010) & (cancer['Year'] <= 2019)]
+# Creating a new Dataframe with cancer record from 2000 to 2019
+cancer2000_19 = cancer[(cancer['Year'] >= 2000) & (cancer['Year'] <= 2019)]
 
 # Selecting 5 Countries randomly and forming a list
 country = ['Sweden', 'Chile', 'Hungary', 'Belgium', 'Greece']
 
 # Filtering the dataframe into these 5 countries records
-cancer_df = cancer2010_19[cancer2010_19['Country'].isin(country)]
+cancer_df = cancer2000_19[cancer2000_19['Country'].isin(country)]
 
 # Reseting the index for the filtered dataframe cancer_df
 cancer_df = cancer_df.reset_index()
@@ -139,15 +139,11 @@ This is done for drawing the line plot of the total cancer deaths of
 selected_columns = cancer_df.columns[cancer_df.columns.get_loc('Liver'):]
 cancer_df['Total'] = cancer_df[selected_columns].sum(axis=1)
 
-# list of selected years ie., 2010 to 2019
-year = np.arange(2010, 2020)
+# list of selected years ie., 2000 to 2019
+year = np.arange(2000, 2020)
 
-# Filtering the dataframe cancer_df for the year 2019
+# Filtering the dataframe cancer_df for the year 2019 for bar plot
 cancer19 = cancer_df[cancer_df['Year'] == 2019]
-
-'''Creating a new Dataframe with data of selected countries and all
-    cancer type deaths of a single year(2019) '''
-cancer_19 = cancer[cancer['Year'] == 2019]
 
 ''' Filter the above dataframe to create a dataframe of breast cancer and
      tracheal,bronchus and lung cancer'''
@@ -158,6 +154,10 @@ cancer_bl['b_prop'] = cancer_bl['Breast'] / \
     (cancer_bl['Breast']+cancer_bl['Tracheal, bronchus, and lung'])
 cancer_bl['l_prop'] = cancer_bl['Tracheal, bronchus, and lung']/(
     cancer_bl['Breast']+cancer_bl['Tracheal, bronchus, and lung'])
+
+'''Creating a new Dataframe with data of selected countries and all
+    cancer type deaths of a single year(2019) for the pie chart '''
+cancer_19 = cancer[cancer['Year'] == 2019]
 
 # List of cancer types
 cancer_types = cancer_19.columns[3:]
